@@ -2,6 +2,19 @@
 name = "zerotoprod"
 version = "0.1.0"
 edition = "2021"
+authors = ["Chloe Pratas <chloevision97@gmail.com>"]
+description = "A tool to help you get your project to production faster."
+license = "MIT"
+repository = "https://github.com/Chloe199719/zerotoprod"
+
+[lib]
+path = "src/lib.rs"
+
+
+[[bin]]
+path = "src/main.rs"
+name = "zerotoprod"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
