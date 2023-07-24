@@ -46,7 +46,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
           push: true
           tags: chloe1997/zerotoprod:latest
 
@@ -68,7 +67,7 @@ jobs:
         run: sudo apt-get install sshpass
 
       - name: Copy docker-compose.yml to Linode
-        run: sshpass -p ${{ secrets.LINODE_PASSWORD }} scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.LINODE_USERNAME }}@${{ secrets.LINODE_HOST }}:~
+        run: sshpass -v -p ${{ secrets.LINODE_PASSWORD }} scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.LINODE_USERNAME }}@${{ secrets.LINODE_HOST }}:~
 
       - name: Deploy to Linode
         if: github.ref == 'refs/heads/main'
