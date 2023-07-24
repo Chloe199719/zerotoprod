@@ -61,19 +61,15 @@ jobs:
 
       - name |: Login to DockerHub
         uses: docker/login-action@v1
-         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Install Sshpass
         run: sudo apt-get install sshpass
 
-
-
-
-
       -name: Copy docker-compose.yml to Linode
-          run: sshpass -p ${{ secrets.LINODE_PASSWORD }} scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.LINODE_USERNAME }}@${{ secrets.LINODE_HOST }}:~
+        run: sshpass -p ${{ secrets.LINODE_PASSWORD }} scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.LINODE_USERNAME }}@${{ secrets.LINODE_HOST }}:~
 
       - name: Deploy to Linode
           if: github.ref == 'refs/heads/main'
