@@ -85,6 +85,6 @@ jobs:
             export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
             export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
 
-            docker-compose down || true
+            docker-compose down --rmi all || true
             docker-compose pull
             docker-compose up -d
