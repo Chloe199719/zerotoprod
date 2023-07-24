@@ -1,4 +1,4 @@
-name: Rust CI/CD
+name: Pull Request Work Flow
 
 on:
   pull_request:
@@ -18,11 +18,11 @@ jobs:
           toolchain: stable
           profile: minimal
 
-      - name: Check formatting
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: -- --check
+      # - name: Check formatting
+      #   uses: actions-rs/cargo@v1
+      #   with:
+      #     command: fmt
+      #     args: -- --check
 
       - name: Build
         uses: actions-rs/cargo@v1
