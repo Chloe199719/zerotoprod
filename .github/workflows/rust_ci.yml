@@ -50,9 +50,7 @@ jobs:
           push: true
           tags: chloe1997/zerotoprod:latest
 
-      - name: Install Sshpass
-        run: sudo apt-get install sshpass
-
+ 
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -67,7 +65,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-          
+      - name: Install Sshpass
+        run: sudo apt-get install sshpass
+
 
 
 
