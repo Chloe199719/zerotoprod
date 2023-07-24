@@ -38,6 +38,7 @@ pub async fn run() -> std::io::Result<()> {
             .service(index)
             .service(greet)
             .service(health_check)
+            .service(subscribe)
     })
     .bind(("0.0.0.0", 3000))?.run().await
 }
