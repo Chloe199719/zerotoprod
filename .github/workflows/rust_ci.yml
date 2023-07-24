@@ -41,7 +41,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2.30
+        uses: docker/build-push-action@v2
         with:
           push: true
 
