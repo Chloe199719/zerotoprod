@@ -20,7 +20,7 @@ async fn index() -> impl Responder {
 
 #[get("/greet/{name}")]
 async fn greet(path: web::Path<(String,)>) -> impl Responder {
-    HttpResponse::Ok().body(format!("Hello 2nd deploy {}!", path.0))
+    HttpResponse::Ok().body(format!("Hello 3rd deploy {}!", path.0))
 }
 
 #[get("/health-check")]
