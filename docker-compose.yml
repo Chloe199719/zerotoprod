@@ -1,7 +1,7 @@
 version: "3"
 services:
   api:
-    image: zerotoprod:latest
+    image: chloe1997/zerotoprod:latest
     ports:
       - "3000:3000"
     depends_on:
@@ -9,6 +9,9 @@ services:
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
 
+    build:
+      context: .
+      dockerfile: Dockerfile
   db:
     image: postgres:15.3-alpine
     restart: always
