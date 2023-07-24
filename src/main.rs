@@ -8,7 +8,7 @@ async fn main() -> std::io::Result<()> {
             .service(greet)
             .service(health_check)
     })
-    .bind(("127.0.0.1", 3000))?
+    .bind(("0.0.0.0", 3000))?
     .run()
     .await
 }
@@ -20,7 +20,7 @@ async fn index() -> impl Responder {
 
 #[get("/greet/{name}")]
 async fn greet(path: web::Path<(String,)>) -> impl Responder {
-    HttpResponse::Ok().body(format!("Hello {}!", path.0))
+    HttpResponse::Ok().body(format!("Hello 2nd deploy {}!", path.0))
 }
 
 #[get("/health-check")]
