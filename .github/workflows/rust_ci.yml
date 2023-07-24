@@ -80,4 +80,4 @@ jobs:
 
             docker-compose down  || true
             docker-compose pull 
-            docker-compose up -d --force-recreate
+            docker-compose up -d --force-recreate --pull
