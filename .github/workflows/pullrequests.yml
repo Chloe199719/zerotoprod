@@ -1,4 +1,4 @@
-name: Rust CI/CD
+name: Pull Request Work Flow
 
 on:
   pull_request:
