@@ -10,5 +10,6 @@ RUN cargo build --release --target x86_64-unknown-linux-musl
 
 FROM scratch
 COPY --from=builder /zerotoprod/target/x86_64-unknown-linux-musl/release/zerotoprod .
+COPY --from=builder /zerotoprod/configuration.yaml .
 ENTRYPOINT [ "/zerotoprod" ]
 EXPOSE 3000
