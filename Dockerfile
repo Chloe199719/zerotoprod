@@ -1,5 +1,6 @@
 FROM messense/rust-musl-cross:x86_64-musl as builder
-
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
 WORKDIR /zerotoprod
 # Copy over your Manifest files
 COPY . .

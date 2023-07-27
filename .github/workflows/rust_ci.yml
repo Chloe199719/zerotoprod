@@ -62,6 +62,8 @@ jobs:
         with:
           push: true
           tags: chloe1997/zerotoprod:latest
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
 
   deploy:
     needs: build
