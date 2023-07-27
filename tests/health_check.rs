@@ -2,7 +2,11 @@
 use std::collections::HashMap;
 
 use actix_web::{test, App, http::header::ContentType};
-use zerotoprod::{health_check, subscribe};
+use zerotoprod::routes::subscribe;
+use zerotoprod::routes::health_check;
+use zerotoprod::configuration::get_configuration;
+use sqlx::{ PgConnection, Connection};
+
 
 #[actix_web::test]
 async fn test_health_check() {
@@ -15,14 +19,23 @@ async fn test_health_check() {
 
 #[actix_web::test]
 async fn subscribe_returns_a_200_for_valid_from_data(){
+    let configuration = get_configuration().expect("Failed to read configuration.");
+    let connection_string = configuration.database.connection_string();
+    let mut connection = PgConnection::connect(&connection_string).await.expect("Failed to connect to Postgres.");
 
     // let data = "name=le%20guin&email=ursula_le_guin%40gmail.com";
     let map : HashMap<&str, &str> = [("name", "le guin"), ("email", "ursula_le_guin%40gmail.com")].iter().cloned().collect();
     let app = test::init_service(App::new().service(subscribe)).await;
-    let req = test::TestRequest::post().uri("/subscribe").insert_header(ContentType::form_url_encoded()).set_form(map).to_request();
+    let req = test::TestRequest::post().uri("/subscribe").insert_header(ContentType::form_url_encoded()).set_form(&map).to_request();
     let resp = test::call_service(&app, req).await;
     println!("{:?}", resp.status());
     assert!(resp.status().is_success());
+    std::env::set_var("DATABASE_URL", configuration.database.connection_string());
+    let saved = sqlx::query!("SELECT email, name FROM subscriptions",).fetch_one(&mut connection).await.expect("Failed to fetch saved subscription.");
+    let email = map.get("email").unwrap().to_string();
+    let name = map.get("name").unwrap().to_string();
+    assert_eq!(saved.email, email);
+    assert_eq!(saved.name, name);
 }
 
 #[actix_web::test]

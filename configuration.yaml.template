@@ -1,0 +1,8 @@
+application_port: 3000
+application_host: "0.0.0.0"
+database:
+  host: ${LINODE_HOST}
+  port: 5432
+  username: ${POSTGRES_USER}
+  password: ${POSTGRES_PASSWORD}
+  database_name: ${POSTGRES_DB}
