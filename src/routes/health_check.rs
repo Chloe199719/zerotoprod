@@ -1,4 +1,4 @@
-use actix_web::{Responder, HttpResponse, get};
+use actix_web::{ Responder, HttpResponse, get };
 
 #[get("/health-check")]
 pub async fn health_check() -> impl Responder {
