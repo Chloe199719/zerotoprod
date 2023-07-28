@@ -111,3 +111,12 @@ jobs:
             docker-compose down  || true
             docker-compose pull 
             docker-compose up -d --force-recreate
+  testing:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check http code Status
+        uses: lakuapik/gh-actions-http-status@v1
+        with:
+          sites: '["http://194.195.240.111:3000/health-check"]'
+          expected: "[200,301]"
