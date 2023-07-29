@@ -3,12 +3,18 @@ use tracing_bunyan_formatter::{ BunyanFormattingLayer, JsonStorageLayer };
 use tracing_subscriber::{ EnvFilter, Registry, layer::SubscriberExt };
 use tracing_log::LogTracer;
 use tracing::Subscriber;
-
-pub fn get_subscriber(name: String, env_filter: String) -> impl Subscriber + Send + Sync {
+use tracing_subscriber::fmt::MakeWriter;
+pub fn get_subscriber<Sink>(
+    name: String,
+    env_filter: String,
+    sink: Sink
+) -> impl Subscriber + Send + Sync
+    where Sink: for<'a> MakeWriter<'a> + Send + Sync + 'static
+{
     let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_|
         EnvFilter::new(env_filter)
     );
-    let formating_layer = BunyanFormattingLayer::new(name.into(), std::io::stdout);
+    let formating_layer = BunyanFormattingLayer::new(name.into(), sink);
     Registry::default().with(env_filter).with(JsonStorageLayer).with(formating_layer)
 }
 
